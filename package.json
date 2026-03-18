@@ -1,0 +1,7 @@
+{
+  "name": "jsresponses",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Web framework in JavaScript with OOP",
+  "license": "MIT"
+}
