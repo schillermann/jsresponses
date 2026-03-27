@@ -22,6 +22,7 @@ import { ResponseStatusLineOk } from './ResponseStatusLineOk.js';
 import { ResponseHtmlHeader } from './ResponseHtmlHeader.js';
 import { ResponseBody } from './ResponseBody.js';
 import { WireMedia } from './WireMedia.js';
+import { PortStandard } from './PortStandard.js';
 
 WireFront(
   (req, res) => {
@@ -30,6 +31,55 @@ WireFront(
         ResponseBody('<h1>Hello from JSResponses!</h1>')
       )
     ).media(WireMedia(res));
-  }
+  },
+  PortStandard()
 ).value();
+```
+
+## Change Default Port
+
+If you need to change the default port while still supporting environment variables and CLI arguments, you can pass it to `PortStandard`:
+
+```javascript
+import { WireFront } from './WireFront.js';
+import { PortStandard } from './PortStandard.js';
+
+WireFront(
+  (req, res) => {
+    // ...
+  },
+  PortStandard(9000)
+).value();
+```
+
+If you need even more control, you can compose port decorators manually.
+For example, to only support a default port and environment variables, ignoring command-line arguments:
+
+```javascript
+import { WireFront } from './WireFront.js';
+import { PortDefault } from './PortDefault.js';
+import { PortEnv } from './PortEnv.js';
+
+WireFront(
+  (req, res) => {
+    // ...
+  },
+  PortEnv(
+    PortDefault(9000)
+  )
+).value();
+```
+
+## Command Line Arguments
+
+You can specify the port using the `--port=` command line argument:
+
+```bash
+node src/main.js --port=9000
+```
+
+Alternatively, you can use the `PORT` environment variable:
+
+```bash
+PORT=9000 node src/main.js
 ```
