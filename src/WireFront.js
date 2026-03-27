@@ -1,21 +1,24 @@
 import http from 'http';
+import { Port } from './Port.js';
 
 /**
  * Front-end that listens to a port using HTTP.
- * @param {function(http.IncomingMessage, http.ServerResponse): void} handle Connection handler
+ * @param {function(http.IncomingMessage, http.ServerResponse): void} socket Connection socket
+ * @param {Object} port Port to listen on (must have toNumber())
  * @returns {Object} Server object
  */
-export function WireFront(handle) {
+export function WireFront(socket, port = Port()) {
   return Object.freeze({
     /**
      * Start it.
      */
     value() {
       const server = http.createServer((req, res) => {
-        handle(req, res);
+        socket(req, res);
       });
-      server.listen(8080, () => {
-        console.log('Server is listening on 8080');
+      const num = port.toNumber();
+      server.listen(num, () => {
+        console.log(`Server is listening on ${num}`);
       });
     }
   });
