@@ -36,6 +36,41 @@ WireFront(
 ).value();
 ```
 
+## Working with Requests
+
+You can use `RequestFromSocket` and `RequestBodyText` to interact with the incoming HTTP request in an object-oriented way:
+
+```javascript
+import { WireFront } from './WireFront.js';
+import { RequestFromSocket } from './RequestFromSocket.js';
+import { RequestBodyText } from './RequestBodyText.js';
+import { ResponseStatusLineOk } from './ResponseStatusLineOk.js';
+import { ResponseHtmlHeader } from './ResponseHtmlHeader.js';
+import { ResponseBody } from './ResponseBody.js';
+import { WireMedia } from './WireMedia.js';
+
+WireFront(
+  async (req, res) => {
+    const request = RequestFromSocket(req);
+    const agent = request.header('User-Agent').value();
+    const body = await RequestBodyText(request).value();
+
+    ResponseStatusLineOk(
+      ResponseHtmlHeader(
+        ResponseBody(
+          `<html>
+            <body>
+              <h1>Your Browser: ${agent}</h1>
+              <p>Body: ${body}</p>
+            </body>
+          </html>`
+        )
+      )
+    ).media(WireMedia(res));
+  }
+).value();
+```
+
 ## Change Default Port
 
 If you need to change the default port while still supporting environment variables and CLI arguments, you can pass it to `PortStandard`:
