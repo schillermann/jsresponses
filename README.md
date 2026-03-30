@@ -22,7 +22,7 @@ import { ResponseStatusLineOk } from './ResponseStatusLineOk.js';
 import { ResponseHtmlHeader } from './ResponseHtmlHeader.js';
 import { ResponseBody } from './ResponseBody.js';
 import { WireMedia } from './WireMedia.js';
-import { PortStandard } from './PortStandard.js';
+import { PortFallback } from './PortFallback.js';
 
 WireFront(
   (req, res) => {
@@ -32,7 +32,7 @@ WireFront(
       )
     ).media(WireMedia(res));
   },
-  PortStandard()
+  PortFallback()
 ).value();
 ```
 
@@ -73,17 +73,17 @@ WireFront(
 
 ## Change Default Port
 
-If you need to change the default port while still supporting environment variables and CLI arguments, you can pass it to `PortStandard`:
+If you need to change the default port while still supporting environment variables and CLI arguments, you can pass it to `PortFallback`:
 
 ```javascript
 import { WireFront } from './WireFront.js';
-import { PortStandard } from './PortStandard.js';
+import { PortFallback } from './PortFallback.js';
 
 WireFront(
   (req, res) => {
     // ...
   },
-  PortStandard(9000)
+  PortFallback(9000)
 ).value();
 ```
 

@@ -1,5 +1,5 @@
 import http from 'http';
-import { PortStandard } from './PortStandard.js';
+import { PortFallback } from './PortFallback.js';
 
 /**
  * Front-end that listens to a port using HTTP.
@@ -7,7 +7,7 @@ import { PortStandard } from './PortStandard.js';
  * @param {import('./Port.js').Port} port Port to listen on (must have value())
  * @returns {Object} Server object
  */
-export function WireFront(socket, port = PortStandard()) {
+export function WireFront(socket, port = PortFallback()) {
   return Object.freeze({
     /**
      * Start it.
