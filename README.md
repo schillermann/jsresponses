@@ -2,7 +2,13 @@
 
 A simple, composable JavaScript web framework built on [http module](https://nodejs.org/api/http.html).
 
-Inspired by pure OOP, Alan Kay with [Smalltalk](https://en.wikipedia.org/wiki/Smalltalk), and Yegor Bugayenko's [Cactoos](https://github.com/yegor256/takes), [Takes](https://github.com/yegor256/takes), and [JPages](https://github.com/yegor256/jpages).
+Inspired by pure OOP, Alan Kay with [Smalltalk](https://en.wikipedia.org/wiki/Smalltalk), and Yegor Bugayenko's [Cactoos](https://github.com/yegor256/takes), [Takes](https://github.com/yegor256/cactoos), and [JPages](https://github.com/yegor256/jpages).
+
+- [Principles](#principles)
+- [Quick Start](#quick-start)
+- [Requests](#requests)
+- [Port](#port)
+- [Command Line Arguments](#command-line-arguments)
 
 ## Principles
 
@@ -33,10 +39,10 @@ WireFront(
     ).media(WireMedia(res));
   },
   PortFallback()
-).value();
+).conclusion();
 ```
 
-## Working with Requests
+## Requests
 
 You can use `RequestFromSocket` and `RequestBodyText` to interact with the incoming HTTP request in an object-oriented way:
 
@@ -68,10 +74,10 @@ WireFront(
       )
     ).media(WireMedia(res));
   }
-).value();
+).conclusion();
 ```
 
-## Change Default Port
+## Port
 
 If you need to change the default port while still supporting environment variables and CLI arguments, you can pass it to `PortFallback`:
 
@@ -84,7 +90,7 @@ WireFront(
     // ...
   },
   PortFallback(9000)
-).value();
+).conclusion();
 ```
 
 If you need even more control, you can compose port decorators manually.
@@ -102,7 +108,7 @@ WireFront(
   PortEnv(
     PortDefault(9000)
   )
-).value();
+).conclusion();
 ```
 
 ## Command Line Arguments
