@@ -8,7 +8,6 @@ Inspired by pure OOP, Alan Kay with [Smalltalk](https://en.wikipedia.org/wiki/Sm
 - [Quick Start](#quick-start)
 - [Requests](#requests)
 - [Port](#port)
-- [Command Line Arguments](#command-line-arguments)
 
 ## Principles
 
@@ -110,8 +109,6 @@ WireFront(
   )
 ).conclusion();
 ```
-
-## Command Line Arguments
 
 You can specify the port using the `--port=` command line argument:
 
