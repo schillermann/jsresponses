@@ -1,5 +1,6 @@
 import { RequestHeaderFromStream } from './RequestHeaderFromStream.js';
 import { RequestBodyFromStream } from './RequestBodyFromStream.js';
+import { RequestLineFromStream } from './RequestLineFromStream.js';
 
 /**
  * Request from stream (IncomingMessage).
@@ -8,6 +9,9 @@ import { RequestBodyFromStream } from './RequestBodyFromStream.js';
  */
 export function RequestFromStream(message) {
   return Object.freeze({
+    requestLine() {
+      return RequestLineFromStream(message);
+    },
     header(name) {
       return RequestHeaderFromStream(message, name);
     },

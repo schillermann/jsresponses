@@ -2,7 +2,7 @@
  * Header of the request from stream.
  * @param {import('http').IncomingMessage} message Incoming message
  * @param {string} name Header name
- * @returns {import('./RequestHeader.js').RequestHeader} Header
+ * @returns {import('./Header.js').Header} Header
  */
 export function RequestHeaderFromStream(message, name) {
   return Object.freeze({

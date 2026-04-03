@@ -1,6 +1,7 @@
 /**
  * An HTTP request.
  * @typedef {Object} Request
- * @property {function(string): import('./RequestHeader.js').RequestHeader} header Get header by name
- * @property {function(): import('./RequestBody.js').RequestBody} body Get the body
+ * @property {function(): import('./RequestLine.js').RequestLine} requestLine Get the request line
+ * @property {function(string): import('./Header.js').Header} header Get header by name
+ * @property {function(): import('./Body.js').Body} body Get the body
  */

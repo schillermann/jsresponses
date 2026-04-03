@@ -9,6 +9,7 @@ Inspired by pure OOP, Alan Kay with [Smalltalk](https://en.wikipedia.org/wiki/Sm
 - [Requests](#requests)
   - [Body Decorators](#body-decorators)
 - [Port](#port)
+- [Routing](#routing)
 
 ## Principles
 
@@ -144,4 +145,34 @@ Alternatively, you can use the `PORT` environment variable:
 
 ```bash
 PORT=9000 node src/main.js
+```
+
+## Routing
+
+You can use declarative routing with `ResponseForked` and `ForkPath`:
+
+```javascript
+import { WireFront } from './WireFront.js';
+import { ResponseStatusLineOk } from './ResponseStatusLineOk.js';
+import { ResponseStatusLineNotFound } from './ResponseStatusLineNotFound.js';
+import { ResponseBody } from './ResponseBody.js';
+import { WireMedia } from './WireMedia.js';
+import { PortFallback } from './PortFallback.js';
+import { RequestFromStream } from './RequestFromStream.js';
+import { ResponseForked } from './ResponseForked.js';
+import { ForkPath } from './ForkPath.js';
+
+WireFront(
+  (req, res) => {
+    const request = RequestFromStream(req);
+    ResponseForked(
+      request,
+      ResponseStatusLineNotFound(ResponseBody('Page Not Found!')),
+      ForkPath('/', ResponseStatusLineOk(ResponseBody('Hello World!'))),
+      ForkPath('/balance', ResponseStatusLineOk(ResponseBody('42'))),
+      ForkPath('/id', ResponseStatusLineOk(ResponseBody('mario')))
+    ).media(WireMedia(res));
+  },
+  PortFallback()
+).conclusion();
 ```

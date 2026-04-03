@@ -1,7 +1,7 @@
 /**
  * Request body from stream.
  * @param {import('stream').Readable} stream Stream
- * @returns {import('./RequestBody.js').RequestBody} Body
+ * @returns {import('./Body.js').Body} Body
  */
 export function RequestBodyFromStream(stream) {
   return Object.freeze({
