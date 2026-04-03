@@ -7,6 +7,7 @@ Inspired by pure OOP, Alan Kay with [Smalltalk](https://en.wikipedia.org/wiki/Sm
 - [Principles](#principles)
 - [Quick Start](#quick-start)
 - [Requests](#requests)
+  - [Body Decorators](#body-decorators)
 - [Port](#port)
 
 ## Principles
@@ -43,12 +44,11 @@ WireFront(
 
 ## Requests
 
-You can use `RequestFromSocket` and `RequestBodyText` to interact with the incoming HTTP request in an object-oriented way:
+You can use `RequestFromStream` to interact with the incoming HTTP request in an object-oriented way:
 
 ```javascript
 import { WireFront } from './WireFront.js';
-import { RequestFromSocket } from './RequestFromSocket.js';
-import { RequestBodyText } from './RequestBodyText.js';
+import { RequestFromStream } from './RequestFromStream.js';
 import { ResponseStatusLineOk } from './ResponseStatusLineOk.js';
 import { ResponseHtmlHeader } from './ResponseHtmlHeader.js';
 import { ResponseBody } from './ResponseBody.js';
@@ -56,9 +56,8 @@ import { WireMedia } from './WireMedia.js';
 
 WireFront(
   async (req, res) => {
-    const request = RequestFromSocket(req);
+    const request = RequestFromStream(req);
     const agent = request.header('User-Agent').value();
-    const body = await RequestBodyText(request).value();
 
     ResponseStatusLineOk(
       ResponseHtmlHeader(
@@ -66,7 +65,6 @@ WireFront(
           `<html>
             <body>
               <h1>Your Browser: ${agent}</h1>
-              <p>Body: ${body}</p>
             </body>
           </html>`
         )
@@ -74,6 +72,32 @@ WireFront(
     ).media(WireMedia(res));
   }
 ).conclusion();
+```
+
+### Body Decorators
+
+If you need to work with the request body, you can use body decorators:
+
+#### Plain Text
+
+Use `RequestBodyText` to get the body as a string:
+
+```javascript
+import { RequestBodyText } from './RequestBodyText.js';
+
+// inside WireFront handler
+const body = await RequestBodyText(request).value();
+```
+
+#### JSON
+
+Use `RequestBodyJson` to get the body as a JSON object:
+
+```javascript
+import { RequestBodyJson } from './RequestBodyJson.js';
+
+// inside WireFront handler
+const body = await RequestBodyJson(request).value();
 ```
 
 ## Port
