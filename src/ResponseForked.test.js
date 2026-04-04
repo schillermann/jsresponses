@@ -2,18 +2,18 @@ import test from 'node:test';
 import assert from 'node:assert';
 import { ResponseForked } from './ResponseForked.js';
 import { ForkPath } from './ForkPath.js';
-import { FakeRequest } from './FakeRequest.js';
-import { FakeResponse } from './FakeResponse.js';
-import { FakeMedia } from './FakeMedia.js';
+import { RequestFake } from './RequestFake.js';
+import { ResponseFake } from './ResponseFake.js';
+import { MediaFake } from './MediaFake.js';
 
 test('ResponseForked selects first matching fork', () => {
-  const media = FakeMedia();
-  const request = FakeRequest('/balance');
+  const media = MediaFake();
+  const request = RequestFake('/balance');
   const response = ResponseForked(
     request,
-    FakeResponse(404),
-    ForkPath('/', FakeResponse(200, 'root')),
-    ForkPath('/balance', FakeResponse(200, '42'))
+    ResponseFake(404),
+    ForkPath('/', ResponseFake(200, 'root')),
+    ForkPath('/balance', ResponseFake(200, '42'))
   );
   response.media(media);
   assert.strictEqual(media.code(), 200);
@@ -21,12 +21,12 @@ test('ResponseForked selects first matching fork', () => {
 });
 
 test('ResponseForked uses fallback when no fork matches', () => {
-  const media = FakeMedia();
-  const request = FakeRequest('/unknown');
+  const media = MediaFake();
+  const request = RequestFake('/unknown');
   const response = ResponseForked(
     request,
-    FakeResponse(404, 'not found'),
-    ForkPath('/', FakeResponse(200, 'root'))
+    ResponseFake(404, 'not found'),
+    ForkPath('/', ResponseFake(200, 'root'))
   );
   response.media(media);
   assert.strictEqual(media.code(), 404);

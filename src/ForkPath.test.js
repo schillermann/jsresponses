@@ -1,21 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { ForkPath } from './ForkPath.js';
-import { FakeRequest } from './FakeRequest.js';
-import { FakeResponse } from './FakeResponse.js';
+import { RequestFake } from './RequestFake.js';
+import { ResponseFake } from './ResponseFake.js';
 
 test('ForkPath matches correct path', () => {
-  const fork = ForkPath('/home', FakeResponse());
-  assert.strictEqual(fork.matches(FakeRequest('/home')), true);
+  const fork = ForkPath('/home', ResponseFake());
+  assert.strictEqual(fork.matches(RequestFake('/home')), true);
 });
 
 test('ForkPath does not match incorrect path', () => {
-  const fork = ForkPath('/home', FakeResponse());
-  assert.strictEqual(fork.matches(FakeRequest('/about')), false);
+  const fork = ForkPath('/home', ResponseFake());
+  assert.strictEqual(fork.matches(RequestFake('/about')), false);
 });
 
 test('ForkPath returns correct response', () => {
-  const response = FakeResponse(200, 'hello');
+  const response = ResponseFake(200, 'hello');
   const fork = ForkPath('/home', response);
-  assert.strictEqual(fork.response(FakeRequest('/home')), response);
+  assert.strictEqual(fork.response(RequestFake('/home')), response);
 });
