@@ -1,15 +1,7 @@
 /**
- * HTTP response media.
- * @typedef {Object} Media
- * @property {function(number, string): Media} status Set status
- * @property {function(string, string): Media} header Set header
- * @property {function(any): Media} body Set body
- */
-
-/**
  * Media for HTTP response.
  * @param {import('http').ServerResponse} out Server response
- * @returns {Object} Media
+ * @returns {import('./Media.js').Media} Media
  */
 export function WireMedia(out) {
   return Object.freeze({

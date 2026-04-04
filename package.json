@@ -3,5 +3,8 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Web framework in JavaScript with OOP",
+  "scripts": {
+    "test": "node --test src/*.test.js"
+  },
   "license": "MIT"
 }
