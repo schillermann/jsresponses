@@ -2,6 +2,10 @@
 
 A simple, composable JavaScript web framework built on [http module](https://nodejs.org/api/http.html).
 
+Check out similar web frameworks in other languages:
+- [PHPResponses](https://github.com/schillermann/phpresponses)
+- [JResponses](https://github.com/schillermann/jresponses)
+
 Inspired by pure OOP, Alan Kay with [Smalltalk](https://en.wikipedia.org/wiki/Smalltalk), and Yegor Bugayenko's [Cactoos](https://github.com/yegor256/takes), [Takes](https://github.com/yegor256/cactoos), and [JPages](https://github.com/yegor256/jpages).
 
 - [Principles](#principles)
